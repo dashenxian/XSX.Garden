@@ -1,11 +1,9 @@
-﻿using Volo.Abp.DependencyInjection;
-
-namespace XSX.Garden.MAUI;
+﻿namespace XSX.Garden.MAUI.Services;
 
 public class HelloWorldService : ITransientDependency
 {
     public string SayHello()
     {
-        return "Hello, World!";
+        return "Hello, World!123";
     }
 }
