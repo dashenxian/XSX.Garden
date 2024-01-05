@@ -1,9 +1,35 @@
-﻿namespace XSX.Garden.MAUI.Services;
+﻿using Microsoft.Extensions.Logging;
+using Serilog;
+using LoggerExtensions = Microsoft.Extensions.Logging.LoggerExtensions;
 
-public class HelloWorldService : ITransientDependency
+namespace XSX.Garden.MAUI.Services;
+
+public class HelloWorldService : BaseService
 {
-    public string SayHello()
+    private readonly ISecureStorage _secureStorage;
+    private readonly ILogger<HelloWorldService> _logger;
+
+    public HelloWorldService(ISecureStorage secureStorage, ILogger<HelloWorldService> logger)
     {
-        return "Hello, World!123";
+        _secureStorage = secureStorage;
+        _logger = logger;
+    }
+    public async Task<string> SayHello()
+    {
+        var value = await _secureStorage.GetAsync("Welcome");
+        if (value != null)
+        {
+            Logger.LogInformation("没有写入缓存33");
+            return value;
+        }
+        Logger.LogError("写入了缓存");
+        value = $"Hello, World!{DateTime.Now:hh:mm:ss}";
+        await _secureStorage.SetAsync("Welcome", value);
+        return value;
+    }
+
+    public void WriteLog()
+    {
+        _logger.LogInformation("没有写入缓存1");
     }
 }

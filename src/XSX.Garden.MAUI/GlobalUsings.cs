@@ -8,3 +8,5 @@ global using CommunityToolkit.Mvvm.Input;
 global using Volo.Abp.DependencyInjection;
 global using XSX.Garden.MAUI.ViewModels;
 global using XSX.Garden.MAUI.Services;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.Extensions.Logging.Abstractions;
